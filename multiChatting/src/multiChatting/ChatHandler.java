@@ -24,6 +24,11 @@ public class ChatHandler extends Thread {
 		o = new PrintWriter(new OutputStreamWriter(os), true);
 	}
 
+	//프로토콜 처리하기
+	/*
+	 * 프로토콜 정의하기
+	 * 
+	 * */
 	@Override
 	public void run() {
 		String name = "";
