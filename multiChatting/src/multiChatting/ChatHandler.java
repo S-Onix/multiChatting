@@ -14,6 +14,7 @@ public class ChatHandler extends Thread {
 	private BufferedReader i;
 	private PrintWriter o;
 	private ChatServer server;
+	private String user;
 
 	public ChatHandler(ChatServer server, Socket s) throws IOException {
 		this.s = s;
@@ -34,6 +35,7 @@ public class ChatHandler extends Thread {
 		String name = "";
 		try {
 			name = i.readLine();
+			setUser(name);
 			server.register(this);
 			broadcast(name + "¥‘¿Ã πÊπÆ«œºÃΩ¿¥œ¥Ÿ.");
 
@@ -64,6 +66,8 @@ public class ChatHandler extends Thread {
 		}
 
 	}
+	
+	
 
 	public void println(String message) {
 		// TODO Auto-generated method stub
@@ -72,6 +76,14 @@ public class ChatHandler extends Thread {
 
 	public void broadcast(String message) {
 		server.broadcast(message);
+	}
+	
+	public void setUser(String user) {
+		this.user = user;
+	}
+	
+	public String getUser() {
+		return user;
 	}
 
 }

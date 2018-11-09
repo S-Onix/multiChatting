@@ -3,6 +3,7 @@ package multiChatting;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.StringTokenizer;
 import java.util.Vector;
 
 //특정된 사용자 저장 및 
@@ -43,20 +44,27 @@ public class ChatServer {
 
 	// 모든 사용자에게 방송한다.
 	public void broadcast(String message) {
-		synchronized(handlers) {
+		synchronized (handlers) {
 			int n = handlers.size();
+
+			StringBuilder sb = new StringBuilder();
+			for(int i = 0; i < n; i++) {
+				ChatHandler c = (ChatHandler) handlers.elementAt(i);
+				sb.append(c.getUser() + "|");
+			}
+			
 			for (int i = 0; i < n; i++) {
 				ChatHandler c = (ChatHandler) handlers.elementAt(i);
-				try{
-					c.println(message);
-				}catch (Exception e) {
+				try {
+					c.println(sb.toString()+ message);
+				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				
+
 			}
 		}
 	}
-	
+
 	public static void main(String[] args) {
 		new ChatServer(9830);
 	}
